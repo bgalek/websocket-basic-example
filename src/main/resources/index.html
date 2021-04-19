@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Websocket example</title>
+</head>
+<script>
+    const webSocket = new WebSocket(`ws://${window.location.hostname}:9090`);
+    webSocket.onmessage = function (event) {
+        const line = document.createElement('pre');
+        line.innerText = event.data;
+        document.querySelector('#output').appendChild(line);
+    };
+
+    function ping() {
+        webSocket.send('PING');
+    }
+
+    function healthcheck() {
+        webSocket.send('DOES IT WORK?');
+    }
+</script>
+<body>
+<button onclick="ping()">ping</button>
+<button onclick="healthcheck()">healtcheck</button>
+<h1>output</h1>
+<div id="output">
+</div>
+</body>
+</html>
